@@ -1,5 +1,5 @@
 let contador = 0;
-document.getElementById("Botao").onClick = ()=>{
+document.getElementById("Botao").onclick = ()=>{
     contador++;
     let toast = document.getElementById("toast");
     if(!toast){
