@@ -8,6 +8,6 @@ document.getElementById("Botao").onclick = () => {
         toast.className = "toast";
         document.body.appendChild(toast);
     }
-    toast.textContent = Você clicou ${contador};  // Corrigido aqui
+    toast.textContent = `Você clicou ${contador}`;  // Corrigido aqui
     toast.classList.add("show");
 };
