@@ -1,13 +1,13 @@
 let contador = 0;
-document.getElementById("Botao").onclick = ()=>{
+document.getElementById("Botao").onclick = () => {
     contador++;
     let toast = document.getElementById("toast");
-    if(!toast){
+    if (!toast) {
         toast = document.createElement("div");
         toast.id = "toast";
         toast.className = "toast";
         document.body.appendChild(toast);
     }
-    toast.textoContent = `Você clicou ${contador}`;
+    toast.textContent = Você clicou ${contador};  // Corrigido aqui
     toast.classList.add("show");
 };
