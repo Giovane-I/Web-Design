@@ -1,0 +1,161 @@
+<!doctype html> 
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <title>Atividade - Mídias em HTML</title>
+  <style>
+    /* Estilos do Passo 9 */
+    #introducao {
+      font-size: 18px;
+      color: #333; /* Cor do texto */
+    }
+
+    .destaque {
+      background-color: #ffff99; /* Fundo amarelo claro */
+      padding: 10px; /* Espaçamento interno */
+      border-radius: 5px; /* Bordas arredondadas */
+    }
+
+    /* Estilo da DIV contêiner (Passo 10) */
+    .container-explicacao {
+      background-color: #e6f7ff; /* Fundo azul claro */
+      border: 1px solid #99ccff; /* Borda azul */
+      padding: 15px; /* Espaçamento interno */
+      margin-top: 20px; /* Espaçamento superior */
+      border-radius: 8px; /* Bordas arredondadas */
+    }
+  </style>
+</head>
+<body>
+    <!-- Seção de imagens (Passo 2) -->
+    <div>
+        <h2> Imagens </h2>
+        <!-- Primeira imagem -->
+        <img src="Gemini_Generated_Image_yco9puyco9puyco9.png" alt="imagem 1"width="500" height="350"/>
+        <!-- Segunda imagem dentro de um parágrafo -->
+        <p><img src="Gemini_Generated_Image_fcpjulfcpjulfcpj.png" alt="imagem 2"width="500" height="350"/></p>
+        <!-- Terceira imagem -->
+        <img src="Gemini_Generated_Image_1pcxbd1pcxbd1pcx.png" alt="imagem 3"width="500" height="350"/>
+    </div>
+
+    <!-- Seção de vídeo (Passo 3)-->
+    <div>
+        <h2> Vídeo </h2>
+        <video src="Vídeo_de_Corrida_de_Cavalos_Pronto.mp4" controls></video> <!-- Vídeo com controles -->
+    </div>
+
+    <!-- Seção de áudios (Passo 4) -->
+    <div>
+        <h2> Áudios </h2>
+        <audio controls>
+            <!-- Fontes de áudio -->
+            <source src="Áudio do WhatsApp de 2025-09-06 à(s) 10.26.33_0653432c.mp3 (online-audio-converter.com).mp3" type="audio/mpeg">
+            <source src="Áudio-do-WhatsApp-de-2025-09-06-à_s_-10.26.33_0653432c.mp3.ogg" type="audio/ogg">
+            Seu navegador não suporta áudio
+        </audio>
+    </div>
+
+    <!-- Formulário (Passo 5)-->
+    <div>
+        <h2> Formulário </h2>
+        <form action="processar.php" method="post">
+            <!-- Campo de texto para nome -->
+            <label for="nome"> Nome: </label>
+            <input type="text" id="nome" name="nome"><br><br>
+            
+            <!-- Campo de email -->
+            <label for="email"> E-mail: </label>
+            <input type="email" id="email" name="email"><br><br>
+            
+            <!-- Campo de mensagem -->
+            <label for="mensagem"> Mensagem: </label>
+            <textarea id="mensagem" name="mensagem"></textarea><br><br>
+            
+            <!-- Botão de envio -->
+            <input type="submit" value="Enviar"/>
+        </form>
+    </div>
+
+    <!-- Links (Passo 6) -->
+    <div>
+        <h2> Links </h2>
+        <a href="https://www.google.com">Google</a> <!-- Link simples -->
+        <p><a href="https://www.google.com"><img src="Google_2015_logo.svg.png" alt="Google"width="500" height="250"/></a></p> <!-- Link com imagem -->
+        <a href="https://www.google.com" target="_blank"></a> <!-- Abre em nova aba -->
+    </div>
+
+    <!-- Listas (Passo 7) -->
+    <div>
+        <h2> Listas </h2>
+        <!-- Lista ordenada -->
+        <ol>
+            <li> Passo 1 </li>
+            <li> Passo 2 </li>
+            <li> Passo 3 </li>
+        </ol>
+        <!-- Lista não ordenada -->
+        <ul>
+            <li> Item A </li>
+            <li> Item B </li>
+            <li> Item C </li>
+        </ul>
+    </div>
+
+    <!-- Tabela (Passo 8) -->
+    <div>
+        <h2> Tabela </h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th> Coluna 1 </th>
+                    <th> Coluna 2 </th>
+                    <th> Coluna 3 </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td> Linha 1 </td>
+                    <td> Dado 1 </td>
+                    <td> Dado 2 </td>
+                </tr>
+                <tr>
+                    <td> Linha 2 </td>
+                    <td> Dado 1 </td>
+                    <td> Dado 2 </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Parágrafos com ID e classe (Passo 9) -->
+    <div>
+        <p id="introducao">
+          Parágrafo introdutório.
+        </p>
+
+        <p class="destaque">
+          Este é o primeiro parágrafo.
+        </p>
+
+        <p class="destaque">
+          Este é o segundo parágrafo.
+        </p>
+    </div>
+
+    <!-- DIV com subtítulo e dois parágrafos (Passo 10) -->
+    <div class="container-explicacao">
+        <h3>Div contêiner</h3>
+        <p>
+          Parágrafo 1 dentro do contêiner.
+        </p>
+        <p>
+          Parágrafo 2 dentro do contêiner.
+        </p>
+    </div>
+</body>
+
+<!-- Estrutura semântica vazia para futuras seções -->
+<header></header>
+<main></main>
+<footer></footer>
+</html>
