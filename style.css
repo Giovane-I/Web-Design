@@ -1,197 +1,640 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // =================================================================
-    // 2. 5 Funcionalidades Básicas (Exemplos de aula)
-    // =================================================================
+:root {
+    --color-primary: #00A878;
+    --color-secondary: #025959;
+    --color-dark-bg: #102326;
+    --color-light-bg: #F2F2F2;
+    --color-dark-text: #1C1C1C;
+    --color-light-text: #FFFFFF;
+    --color-accent: #F2A057;
 
-    // 1. Alternância de Menu Responsivo (Manipulação de Classes)
-    const menuToggle = document.querySelector('.menu-toggle');
-    const mainNav = document.querySelector('.main-nav');
+    --font-primary: 'Roboto', sans-serif;
+    --font-headings: 'Oswald', sans-serif;
+    
+    --container-width: 1200px;
+    --header-height: 80px;
+}
 
-    menuToggle.addEventListener('click', () => {
-        // Adiciona/Remove a classe 'active' para exibir ou ocultar o menu
-        mainNav.classList.toggle('active');
+/* Reset Básico e Padrões */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        // Altera o ícone do menu (opcional)
-        if (mainNav.classList.contains('active')) {
-            menuToggle.innerHTML = '✕'; // Ícone de fechar
-        } else {
-            menuToggle.innerHTML = '☰'; // Ícone de menu
-        }
-    });
+html {
+    scroll-behavior: smooth;
+}
 
-    // 2. Destaque de Notícia ao Passar o Mouse (Manipulação de Estilos)
-    const newsCards = document.querySelectorAll('.news-card');
+body {
+    font-family: var(--font-primary);
+    background-color: var(--color-light-bg);
+    color: var(--color-dark-text);
+    line-height: 1.6;
+}
 
-    newsCards.forEach(card => {
-        card.addEventListener('mouseover', () => {
-            // Aplica um estilo temporário (borda)
-            card.style.border = '2px solid var(--color-accent)';
-            card.querySelector('h3').style.color = 'var(--color-primary)';
-        });
-        card.addEventListener('mouseout', () => {
-            // Remove o estilo
-            card.style.border = 'none';
-            card.querySelector('h3').style.color = 'var(--color-secondary)';
-        });
-    });
+.container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 20px;
+}
 
-    // 3. Exibição de Alerta ao Clicar em 'Leia Mais' (Evento de Clique Simples)
-    const readMoreLinks = document.querySelectorAll('.read-more');
+h1, h2, h3, h4 {
+    font-family: var(--font-headings);
+    text-transform: uppercase;
+    color: var(--color-secondary);
+}
 
-    readMoreLinks.forEach(link => {
-        link.addEventListener('click', (event) => {
-            event.preventDefault(); // Impede a navegação
-            const newsTitle = link.closest('.news-card-content').querySelector('h3').textContent;
-            alert(`Você clicou para ler mais sobre: "${newsTitle}". Funcionalidade em desenvolvimento!`);
-        });
-    });
+.section-title {
+    text-align: center;
+    font-size: 2.8rem;
+    margin-bottom: 50px;
+    position: relative;
+    padding-bottom: 15px;
+}
 
-    // 4. Validação Básica de Formulário de Contato (DOM e Condicionais)
-    const contactForm = document.querySelector('.contact-form');
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background-color: var(--color-primary);
+}
 
-    contactForm.addEventListener('submit', (event) => {
-        event.preventDefault();
+/*------------------------------------*\
+  #CABEÇALHO E NAVEGAÇÃO
+\*------------------------------------*/
+.main-header {
+    background-color: var(--color-dark-bg);
+    color: var(--color-light-text);
+    height: var(--header-height);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
 
-        const emailInput = document.getElementById('email');
-        const messageInput = document.getElementById('message');
-        const emailValue = emailInput.value.trim();
-        const messageValue = messageInput.value.trim();
+.main-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
 
-        if (emailValue === "" || messageValue === "") {
-            alert("Por favor, preencha todos os campos obrigatórios (E-mail e Mensagem).");
-        } else if (!emailValue.includes('@')) {
-             alert("Por favor, insira um endereço de e-mail válido.");
-        } else {
-            alert("Mensagem enviada com sucesso! Em breve entraremos em contato.");
-            contactForm.reset(); // Limpa o formulário
-        }
-    });
+.logo {
+    font-size: 2rem;
+    color: var(--color-primary);
+    font-weight: 700;
+}
 
-    // 5. Ocultar/Exibir Seção (Manipulação de Propriedades CSS)
-    const tableMessage = document.getElementById('table-message');
-    const standingsTable = document.querySelector('.standings-table');
-    let tableIsVisible = true;
+.main-nav ul {
+    list-style: none;
+    display: flex;
+}
 
-    standingsTable.addEventListener('dblclick', () => {
-        if (tableIsVisible) {
-            standingsTable.style.opacity = '0';
-            standingsTable.style.height = '0';
-            tableMessage.textContent = 'Tabela de classificação oculta. Dê um duplo clique para mostrar.';
-            tableIsVisible = false;
-        } else {
-            standingsTable.style.opacity = '1';
-            standingsTable.style.height = 'auto';
-            tableMessage.textContent = '';
-            tableIsVisible = true;
-        }
-    });
+.main-nav a {
+    color: var(--color-light-text);
+    text-decoration: none;
+    padding: 10px 15px;
+    font-family: var(--font-headings);
+    font-size: 1.1rem;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.main-nav a:hover {
+    color: var(--color-dark-bg);
+    background-color: var(--color-primary);
+    border-radius: 5px;
+}
+
+.menu-toggle {
+    display: none;
+    font-size: 2rem;
+    background: none;
+    border: none;
+    color: var(--color-light-text);
+    cursor: pointer;
+    z-index: 1100; /* Para ficar acima do menu */
+}
+
+/*------------------------------------*\
+  #SEÇÃO HERO
+\*------------------------------------*/
+.hero-section {
+    height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.pexels.com/photos/270085/pexels-photo-270085.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1') no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: var(--color-light-text);
+    padding: 0 20px;
+}
+
+.hero-content h2 {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    color: var(--color-light-text);
+}
+
+.hero-content p {
+    font-size: 1.5rem;
+    max-width: 700px;
+    margin: 0 auto 30px;
+}
+
+.cta-button {
+    background-color: var(--color-primary);
+    color: var(--color-light-text);
+    padding: 15px 30px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    display: inline-block;
+}
+
+.cta-button:hover {
+    background-color: var(--color-accent);
+    transform: translateY(-3px);
+}
+
+/*------------------------------------*\
+  #SEÇÕES DE CONTEÚDO
+\*------------------------------------*/
+main {
+    padding-top: var(--header-height);
+}
+
+.content-section {
+    padding: 80px 0;
+}
+
+.content-section-dark {
+    padding: 80px 0;
+    background-color: var(--color-dark-bg);
+}
+
+.content-section-dark .section-title {
+    color: var(--color-light-text);
+}
+
+/* Grid de Notícias */
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.news-card {
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.news-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 25px rgba(0,0,0,0.15);
+}
+
+.news-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.news-card-content {
+    padding: 20px;
+}
+
+.category-tag {
+    display: inline-block;
+    background: var(--color-primary);
+    color: var(--color-light-text);
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.news-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+}
+
+.read-more {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.read-more:hover {
+    color: var(--color-secondary);
+}
+
+/*------------------------------------*\
+  #ESTILOS DAS SEÇÕES NOVAS E CORREÇÕES
+\*------------------------------------*/
+
+/* Tabela de Classificação Responsiva */
+.table-container {
+    overflow-x: auto; /* A MÁGICA ACONTECE AQUI */
+    -webkit-overflow-scrolling: touch; /* Melhora a rolagem em iOS */
+}
+
+.standings-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: var(--color-light-text);
+    min-width: 700px; /* Força a rolagem em telas menores */
+}
+
+.standings-table th, .standings-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--color-secondary);
+}
+
+.standings-table th {
+    background-color: var(--color-secondary);
+    font-family: var(--font-headings);
+    font-size: 1.1rem;
+}
+
+.standings-table tbody tr:nth-child(even) {
+    background-color: #142c30;
+}
+
+.standings-table tbody tr:hover {
+    background-color: var(--color-secondary);
+}
+
+.standings-table img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.standings-table td:first-child, .standings-table td:nth-child(4) {
+    font-weight: bold;
+}
+
+/* Destaques */
+.highlights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+.highlight-player-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+    padding: 30px;
+    transition: box-shadow 0.3s ease;
+}
+
+.highlight-player-card:hover {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.highlight-player-card img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid var(--color-primary);
+    margin-bottom: 20px;
+}
+
+.player-info h4 {
+    color: var(--color-dark-text);
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+/* Explore por Esporte */
+.modalities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.modality-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    text-decoration: none;
+}
+
+.modality-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.modality-card:hover img {
+    transform: scale(1.1);
+}
+
+.modality-name {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    color: var(--color-light-text);
+    padding: 30px 20px 20px;
+    font-family: var(--font-headings);
+    font-size: 1.5rem;
+    text-transform: uppercase;
+}
+
+/* Galeria */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    cursor: pointer;
+}
+
+.gallery-item img:hover {
+    transform: scale(1.05);
+    filter: brightness(0.8);
+}
+
+/* Calendário */
+.schedule-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.schedule-event {
+    display: flex;
+    align-items: center;
+    background-color: var(--color-secondary);
+    padding: 20px;
+    border-radius: 8px;
+    color: var(--color-light-text);
+    transition: background-color 0.3s ease;
+}
+.schedule-event:hover {
+    background-color: #036969;
+}
+
+.event-date {
+    text-align: center;
+    margin-right: 25px;
+    background-color: var(--color-primary);
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.event-date .day {
+    display: block;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.event-date .month {
+    font-size: 1rem;
+}
+
+.event-details {
+    flex-grow: 1;
+}
+
+.event-details h4 {
+    color: var(--color-light-text);
+    font-size: 1.5rem;
+}
+
+.event-status .status-live {
+    background-color: #e74c3c;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.event-status .status-upcoming {
+    background-color: var(--color-accent);
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    color: var(--color-dark-bg);
+}
+
+/* Sobre Nós */
+.about-content {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+.about-content img {
+    max-width: 40%;
+    border-radius: 8px;
+}
+
+/* Formulário de Contato */
+.contact-subtitle {
+    text-align: center;
+    color: var(--color-light-text);
+    max-width: 600px;
+    margin: -30px auto 40px;
+}
+
+.contact-form {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    gap: 20px;
+}
+
+.contact-form input, .contact-form textarea {
+    width: 100%;
+    padding: 15px;
+    border-radius: 5px;
+    border: none;
+    font-family: var(--font-primary);
+    background-color: var(--color-secondary);
+    color: var(--color-light-text);
+}
+.contact-form input::placeholder, .contact-form textarea::placeholder {
+    color: #ccc;
+}
+.submit-button {
+    background-color: var(--color-primary);
+    color: var(--color-light-text);
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+.submit-button:hover {
+    background-color: var(--color-accent);
+}
+
+/*------------------------------------*\
+  #RODAPÉ
+\*------------------------------------*/
+.main-footer {
+    background-color: var(--color-dark-bg);
+    color: var(--color-light-text);
+    padding-top: 50px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    flex-wrap: wrap;
+    padding-bottom: 40px;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 250px;
+}
+
+.footer-section h4 {
+    color: var(--color-primary);
+    margin-bottom: 20px;
+    font-size: 1.4rem;
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul a {
+    color: var(--color-light-text);
+    text-decoration: none;
+    line-height: 2;
+    transition: color 0.3s ease;
+}
+
+.footer-section ul a:hover {
+    color: var(--color-accent);
+}
+
+.social-media a {
+    margin-right: 15px;
+    color: var(--color-light-text);
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+.social-media a:hover {
+    color: var(--color-primary);
+}
+
+.footer-bottom {
+    text-align: center;
+    border-top: 1px solid var(--color-secondary);
+    padding: 20px 0;
+}
+
+/* PARTE 1: BOX MODEL APLICADO NOS 20 ELEMENTOS */
+/* A classe .partner-box aplica as 4 propriedades do Box Model em cada um dos 20 elementos. */
+.partner-box {
+    /* 1. Content (Conteúdo) - Definido por altura e largura */
+    width: 150px;
+    height: 80px;
+
+    /* 2. Padding (Preenchimento Interno) */
+    padding-top: 10px;
+    padding-right: 15px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    /* Shorthand: padding: 10px 15px; */
+
+    /* 3. Border (Borda) */
+    border-width: 3px;
+    border-style: solid;
+    border-color: var(--color-primary);
+    border-radius: 8px; /* Bônus: arredondamento */
+    /* Shorthand: border: 3px solid var(--color-primary); */
+    
+    /* 4. Margin (Margem Externa) */
+    margin-top: 5px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    /* Shorthand: margin: 5px 10px; */
+
+    /* Estilos adicionais para visualização */
+    background-color: #fff;
+    color: var(--color-secondary);
+    font-weight: bold;
+    font-size: 1.1rem;
+    text-align: center;
+    display: flex; /* Usando flex para centralizar o texto internamente */
+    justify-content: center; /* Centraliza o texto horizontalmente */
+    align-items: center; /* Centraliza o texto verticalmente */
+}
 
 
-    // =================================================================
-    // 3. 5 Funcionalidades Extras
-    // =================================================================
+/* PARTE 2: FLEXBOX APLICADO PARA ORGANIZAR OS 20 ELEMENTOS */
+/* O .partners-container é o nosso Flex Container. */
+.partners-container {
+    /* Propriedades do Contêiner Flex */
+    display: flex;              /* 1. Ativa o contexto Flexbox */
+    flex-direction: row;        /* 2. Eixo principal é horizontal (padrão) */
+    justify-content: center;    /* 3. Alinha os itens ao centro do eixo principal */
+    align-items: stretch;       /* 4. Estica os itens para preencherem o contêiner no eixo cruzado (padrão) */
+    flex-wrap: wrap;            /* 5. Permite que os itens quebrem para a linha de baixo */
+    gap: 25px 15px;             /* 6. Espaçamento de 25px vertical e 15px horizontal entre os itens */
+    align-content: center;      /* 7. Alinha as múltiplas linhas (por causa do wrap) ao centro */
+}
 
-    // 6. Contador de Caracteres no Formulário (Eventos de Input e Manipulação de Texto)
-    const messageTextarea = document.getElementById('message');
-    const maxChars = 300; // Limite fictício
+/* Propriedades dos Itens Flex (.partner-box) */
+.partner-box {
+    flex-grow: 1;               /* 8. Permite que o item cresça se houver espaço sobrando */
+    flex-shrink: 1;             /* 9. Permite que o item encolha se não houver espaço (padrão) */
+    flex-basis: 150px;          /* 10. Define o tamanho base do item antes da distribuição de espaço */
+    /* Shorthand: flex: 1 1 150px; */
+}
 
-    // Cria um elemento para exibir a contagem
-    const counterElement = document.createElement('p');
-    counterElement.textContent = `0/${maxChars} caracteres`;
-    counterElement.style.color = 'white';
-    counterElement.style.marginTop = '-10px';
-    counterElement.style.textAlign = 'right';
-    contactForm.insertBefore(counterElement, contactForm.querySelector('.submit-button'));
+/* Exemplo de manipulação de um item específico */
+.partner-box:nth-child(5) {
+    align-self: flex-end;       /* 11. Alinha este item específico na parte inferior do contêiner */
+    order: -1;                  /* 12. Move este item para o início da ordem visual */
+    background-color: var(--color-accent);
+}
 
-    messageTextarea.addEventListener('input', () => {
-        const currentLength = messageTextarea.value.length;
-        counterElement.textContent = `${currentLength}/${maxChars} caracteres`;
-
-        if (currentLength > maxChars) {
-            counterElement.style.color = '#e74c3c'; // Vermelho se exceder
-            messageTextarea.value = messageTextarea.value.substring(0, maxChars);
-        } else if (currentLength > maxChars * 0.8) {
-             counterElement.style.color = 'var(--color-accent)'; // Laranja se estiver perto
-        } else {
-            counterElement.style.color = 'white';
-        }
-    });
-
-    // 7. Filtragem de Notícias por Modalidade (Data Attributes e Loop)
-    const modalityCards = document.querySelectorAll('.modality-card');
-
-    modalityCards.forEach(card => {
-        card.addEventListener('click', (event) => {
-            event.preventDefault();
-            const filterCategory = card.getAttribute('data-modality'); // Ex: 'Futebol'
-
-            newsCards.forEach(newsCard => {
-                const newsCategory = newsCard.getAttribute('data-category');
-
-                if (newsCategory === filterCategory) {
-                    newsCard.style.display = 'block'; // Exibe a notícia
-                } else {
-                    newsCard.style.display = 'none'; // Oculta as outras
-                }
-            });
-
-            // Alerta o usuário do filtro ativo
-            alert(`Filtro ativo: Exibindo apenas notícias de ${filterCategory}. Atualize a página ou clique em outro esporte para reverter.`);
-        });
-    });
-
-    // 8. Efeito ScrollSpy/Destaque de Seção Ativa (Eventos de Scroll)
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.main-nav a');
-
-    window.addEventListener('scroll', () => {
-        let current = '';
-
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop - 100; // Offset para a altura do header
-            const sectionHeight = section.clientHeight;
-            if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
-                current = section.getAttribute('id');
-            }
-        });
-
-        navLinks.forEach(link => {
-            link.classList.remove('active-nav');
-            if (link.getAttribute('href').includes(current)) {
-                link.classList.add('active-nav'); // Adiciona a classe 'active-nav' ao link
-            }
-        });
-    });
-    // OBS: Você precisaria adicionar um CSS para '.active-nav' (ex: background: var(--color-accent); color: var(--color-dark-text);)
-
-    // 9. Ordenação da Tabela por Coluna de Pontos (Manipulação do DOM e Arrays)
-    const sortPtsHeader = document.getElementById('sort-pts');
-    const tableBody = standingsTable.querySelector('tbody');
-    let sortDirection = 1; // 1 para decrescente (padrão), -1 para crescente
-
-    sortPtsHeader.addEventListener('click', () => {
-        const rows = Array.from(tableBody.querySelectorAll('tr'));
-
-        rows.sort((a, b) => {
-            const ptsA = parseInt(a.getAttribute('data-pts'));
-            const ptsB = parseInt(b.getAttribute('data-pts'));
-            return (ptsA - ptsB) * sortDirection;
-        });
-
-        // Remove as linhas existentes e insere as ordenadas
-        rows.forEach(row => tableBody.appendChild(row));
-
-        // Inverte a direção para o próximo clique
-        sortDirection = sortDirection * -1;
-        sortPtsHeader.querySelector('.arrow').textContent = sortDirection === 1 ? '↓' : '↑';
-    });
-
-    // 10. Destaque do Evento 'Ao Vivo' (Alteração de Classe Dinâmica)
-    const liveEvent = document.querySelector('.schedule-event[data-status="live"]');
-
-    if (liveEvent) {
-        // Adiciona uma classe de animação ou destaque ao vivo
-        liveEvent.classList.add('event-live-pulse');
-    }
-    // OBS: Você precisaria adicionar o CSS para a animação 'event-live-pulse'
-});
+.partner-box:nth-child(10) {
+    order: 1;                   /* 13. Move este item para o final da ordem visual */
+}
